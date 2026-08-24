@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Environment files containing secrets
+.env*
+!.env.example
+
+# Migration files (local schema changes)
+workingDir/migrations/*.sql
+!workingDir/migrations/xxx_example.sql
+
+# Seed files
+*_seed.sql
+!example_seed.sql
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
