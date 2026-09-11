@@ -110,11 +110,31 @@ describe('sign up service', () => {
 
     const user = await signUpService.create({
       signupToken: 'signup-token',
-      username: 'NewUser',
-      password: 'secret123',
+      username: 'newuser',
+      password: 'Secret123!',
     });
 
     expect(user.email).toBe('user@example.com');
     expect(user.username).toBe('newuser');
+  });
+
+  it('rejects usernames outside the allowed format', async () => {
+    await expect(
+      signUpService.create({
+        signupToken: 'signup-token',
+        username: 'ab',
+        password: 'Secret123!',
+      }),
+    ).rejects.toMatchObject({ code: 'INVALID_USERNAME' });
+  });
+
+  it('rejects passwords that do not follow the 8-4 rule', async () => {
+    await expect(
+      signUpService.create({
+        signupToken: 'signup-token',
+        username: 'newuser',
+        password: 'secret123',
+      }),
+    ).rejects.toMatchObject({ code: 'INVALID_PASSWORD' });
   });
 });
